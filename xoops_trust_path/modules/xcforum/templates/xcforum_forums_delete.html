@@ -1,0 +1,33 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_FORUMS_DELETE}></h1>
+
+<div class="confirm"><{$smarty.const._MD_XCFORUM_MESSAGE_CONFIRM_DELETE}></div>
+
+<form action="<{xoops_cooluri dirname=$dirname dataname=forums action=delete}>" method="post">
+  <dl class="edit">
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_ID}></dt>
+  <dd><{$object->getShow('forum_id')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_CATEGORY_ID}></dt>
+  <dd><{$mainTitle|xoops_escape}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_EXTERNAL_LINK_FORMAT}></dt>
+  <dd><{$object->getShow('forum_external_link_format')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_TITLE}></dt>
+  <dd><{$object->getShow('forum_title')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_DESC}></dt>
+  <dd><{$object->getShow('forum_desc')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_OPTIONS}></dt>
+  <dd><{$object->getShow('forum_options')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_STATUS}></dt>
+  <dd><{$object->getShowStatus()}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POSTTIME}></dt>
+  <dd><{$object->getShow('posttime')|xoops_formattimestamp:m}></dd>
+
+    <dd>
+      <{xoops_token form=$actionForm}>
+      <{xoops_input type=hidden name=forum_id value=$actionForm->get('forum_id')}>
+      <input type="submit" class="formButton" value="<{$smarty.const._DELETE}>"/>
+      <input type="submit" class="formButton" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel"/>
+    </dd>
+  </dl>
+</form>
+</div>

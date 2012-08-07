@@ -1,0 +1,27 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_TOPICS_DELETE}></h1>
+
+<div class="confirm"><{$smarty.const._MD_XCFORUM_MESSAGE_CONFIRM_DELETE}></div>
+
+<form action="<{xoops_cooluri dirname=$dirname dataname=topics action=delete}>" method="post">
+  <dl class="edit">
+  <dt><{$smarty.const._MD_XCFORUM_LANG_TOPIC_ID}></dt>
+  <dd><{$object->getShow('topic_id')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_TOPIC_EXTERNAL_LINK_ID}></dt>
+  <dd><{$object->getShow('topic_external_link_id')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_TOPIC_TITLE}></dt>
+  <dd><{$object->getShow('topic_title')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_STATUS}></dt>
+  <dd><{$object->getShowStatus()}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POSTTIME}></dt>
+  <dd><{$object->getShow('posttime')|xoops_formattimestamp:m}></dd>
+
+    <dd>
+      <{xoops_token form=$actionForm}>
+      <{xoops_input type=hidden name=topic_id value=$actionForm->get('topic_id')}>
+      <input type="submit" class="formButton" value="<{$smarty.const._DELETE}>"/>
+      <input type="submit" class="formButton" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel"/>
+    </dd>
+  </dl>
+</form>
+</div>

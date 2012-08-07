@@ -1,0 +1,154 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_TOPICS}><{$smarty.const._LIST}></h1>
+<ul class="hmenu">
+  <li><{* <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname action=edit}>"> *}>
+      <a href="<{$xoops_url}>/modules/<{$dirname}>/index.php?action=TopicsEdit"><{$smarty.const._MD_XCFORUM_LANG_ADD_A_NEW_TOPICS}></a></li>
+</ul>
+
+<{if count($objects) > 0}>
+  <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
+  <table class="outer" summary="">
+    <thead>
+      <tr>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_ID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_ID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_ID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_FORUM_ID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_FORUM_ID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_FORUM_ID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_EXTERNAL_LINK_ID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_EXTERNAL_LINK_ID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_EXTERNAL_LINK_ID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_TITLE}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_TITLE}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_TITLE}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_FIRST_UID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_FIRST_UID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_FIRST_UID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_FIRST_POST_ID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_FIRST_POST_ID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_FIRST_POST_ID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_FIRST_POST_TIME}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_FIRST_POST_TIME}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_FIRST_POST_TIME}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_LAST_UID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_LAST_UID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_LAST_UID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_LAST_POST_ID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_LAST_POST_ID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_LAST_POST_ID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_LAST_POST_TIME}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_LAST_POST_TIME}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_LAST_POST_TIME}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_VIEWS}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_VIEWS}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_VIEWS}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_POSTS_COUNT}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_POSTS_COUNT}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_POSTS_COUNT}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_LOCKED}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_LOCKED}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_LOCKED}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_STICKY}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_STICKY}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_STICKY}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_SOLVED}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_SOLVED}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_SOLVED}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_INVISIBLE}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_INVISIBLE}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_INVISIBLE}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_VOTES_SUM}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_VOTES_SUM}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_VOTES_SUM}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_VOTES_COUNT}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_VOTES_COUNT}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_TOPIC_VOTES_COUNT}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_STATUS}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_STATUS}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_STATUS}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_POSTTIME}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_POSTTIME}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_TOPICS_SORT_KEY_POSTTIME}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th><{$smarty.const._MD_XCFORUM_LANG_CONTROL}></th>
+      </tr>
+    </thead>
+    <tbody>
+      <{foreach item=obj from=$objects}>
+        <tr class="<{cycle values='odd,even'}>">
+          <td><{$obj->getShow('topic_id')}></td>
+          <td><{$obj->getShow('forum_id')}></td>
+          <td><{$obj->getShow('topic_external_link_id')}></td>
+          <td><{$obj->getShow('topic_title')}></td>
+          <td><{$obj->getShow('topic_first_uid')}></td>
+          <td><{$obj->getShow('topic_first_post_id')}></td>
+          <td><{$obj->getShow('topic_first_post_time')}></td>
+          <td><{$obj->getShow('topic_last_uid')}></td>
+          <td><{$obj->getShow('topic_last_post_id')}></td>
+          <td><{$obj->getShow('topic_last_post_time')}></td>
+          <td><{$obj->getShow('topic_views')}></td>
+          <td><{$obj->getShow('topic_posts_count')}></td>
+          <td><{$obj->getShow('topic_locked')}></td>
+          <td><{$obj->getShow('topic_sticky')}></td>
+          <td><{$obj->getShow('topic_solved')}></td>
+          <td><{$obj->getShow('topic_invisible')}></td>
+          <td><{$obj->getShow('topic_votes_sum')}></td>
+          <td><{$obj->getShow('topic_votes_count')}></td>
+          <td><{$obj->getShowStatus()}></td>
+          <td><{$obj->getShow('posttime')|xoops_formattimestamp:m}></td>
+
+          <td>
+                <{*  <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname data_id=$obj->getShow('topic_id') action=view}>"><{$smarty.const._VIEW}></a> *}>
+                <{*  <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname data_id=$obj->getShow('topic_id') action=edit}>"><{$smarty.const._EDIT}></a> *}>
+                <{* <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname data_id=$obj->getShow('topic_id') action=delete}>"><{$smarty.const._DELETE}></a> *}>
+              <a href="<{$xoops_url}>/modules/<{$dirname}>/index.php?action=TopicsView&amp;topic_id=<{$obj->getShow('topic_id')}>"><{$smarty.const._VIEW}></a>
+              <a href="<{$xoops_url}>/modules/<{$dirname}>/index.php?action=TopicsEdit&amp;topic_id=<{$obj->getShow('topic_id')}>"><{$smarty.const._EDIT}></a>
+              <a href="<{$xoops_url}>/modules/<{$dirname}>/index.php?action=TopicsDelete&amp;topic_id=<{$obj->getShow('topic_id')}>"><{$smarty.const._DELETE}></a>
+         </td>
+        </tr>
+      <{/foreach}>
+    </tbody>
+  </table>
+  <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
+<{/if}>
+</div>

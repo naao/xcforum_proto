@@ -1,0 +1,38 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_FORUMS}><{$smarty.const._VIEW}></h1>
+<dl class="view">
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_ID}></dt>
+  <dd><{$object->getShow('forum_id')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_CATEGORY_ID}></dt>
+  <dd><{$mainTitle|xoops_escape}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_EXTERNAL_LINK_FORMAT}></dt>
+  <dd><{$object->getShow('forum_external_link_format')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_TITLE}></dt>
+  <dd><{$object->getShow('forum_title')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_DESC}></dt>
+  <dd><{$object->getShow('forum_desc')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_OPTIONS}></dt>
+  <dd><{$object->getShow('forum_options')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_STATUS}></dt>
+  <dd><{$object->getShowStatus()}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POSTTIME}></dt>
+  <dd><{$object->getShow('posttime')|xoops_formattimestamp:m}></dd>
+
+    <!-- tag -->
+    <{if count($object->mTag)>0}>
+    <dt class="tagList"><{$smarty.const._TAG}>: </dt>
+    <dd class="tagList">
+    <{foreach item=tag from=$object->mTag}>
+     <{assign var=tagurl value=$tag|xoops_escape:url}>
+      <span><a href="<{xoops_cooluri dirname=$dirname dataname=$dataname query="tag=`$tag`"}>"><{$tag|xoops_escape}></a></span> 
+    <{/foreach}>
+    <{/if}>
+<div class="image">
+  <{assign var=imageObjs value=$object->getImages()}>
+  <{foreach item=image from=$imageObjs}>
+    <{image->makeImageTag()}>
+  <{/foreach}>
+</div>
+
+</dl>
+</div>

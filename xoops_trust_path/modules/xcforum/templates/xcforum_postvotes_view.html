@@ -1,0 +1,12 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_POSTVOTES}><{$smarty.const._VIEW}></h1>
+<dl class="view">
+  <dt><{$smarty.const._MD_XCFORUM_LANG_VOTE_ID}></dt>
+  <dd><{$object->getShow('vote_id')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_UID}></dt>
+  <dd><{$object->getShow('uid')|xoops_user:user_name}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POSTTIME}></dt>
+  <dd><{$object->getShow('posttime')|xoops_formattimestamp:m}></dd>
+
+</dl>
+</div>

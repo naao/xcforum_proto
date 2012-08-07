@@ -1,0 +1,72 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_POSTVOTES}><{$smarty.const._LIST}></h1>
+<ul class="hmenu">
+  <li><a href="<{xoops_cooluri dirname=$dirname dataname=$dataname action=edit}>"><{$smarty.const._MD_XCFORUM_LANG_ADD_A_NEW_POSTVOTES}></a></li>
+</ul>
+
+<{if count($objects) > 0}>
+  <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
+  <table class="outer" summary="">
+    <thead>
+      <tr>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_VOTE_ID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_VOTE_ID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_VOTE_ID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_POST_ID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_POST_ID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_POST_ID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_UID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_UID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_UID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_VOTE_POINT}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_VOTE_POINT}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_VOTE_POINT}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_VOTE_TIME}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_VOTE_TIME}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_VOTE_TIME}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_VOTE_IP}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_VOTE_IP}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_VOTE_IP}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_POSTTIME}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_POSTTIME}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_POSTVOTES_SORT_KEY_POSTTIME}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th><{$smarty.const._MD_XCFORUM_LANG_CONTROL}></th>
+      </tr>
+    </thead>
+    <tbody>
+      <{foreach item=obj from=$objects}>
+        <tr class="<{cycle values='odd,even'}>">
+          <td><{$obj->getShow('vote_id')}></td>
+          <td><{$obj->getShow('post_id')}></td>
+          <td><{$obj->getShow('uid')|xoops_user:user_name}></td>
+          <td><{$obj->getShow('vote_point')}></td>
+          <td><{$obj->getShow('vote_time')}></td>
+          <td><{$obj->getShow('vote_ip')}></td>
+          <td><{$obj->getShow('posttime')|xoops_formattimestamp:m}></td>
+
+          <td>
+            <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname data_id=$obj->getShow('vote_id') action=view}>"><{$smarty.const._VIEW}></a>
+            <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname data_id=$obj->getShow('vote_id') action=edit}>"><{$smarty.const._EDIT}></a>
+            <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname data_id=$obj->getShow('vote_id') action=delete}>"><{$smarty.const._DELETE}></a>
+          </td>
+        </tr>
+      <{/foreach}>
+    </tbody>
+  </table>
+  <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
+<{/if}>
+</div>

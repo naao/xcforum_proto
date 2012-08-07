@@ -1,0 +1,115 @@
+<!-- start module contents -->
+<!-- breadcrumbs -->
+<{if $mod_config.show_breadcrumbs}>
+<div class="d3f_breadcrumbs">
+	<{strip}>
+		<a href="<{$mod_url}>/index.php"><{$smarty.const._MD_XCFORUM_TOP}></a>
+		&nbsp;&gt;&nbsp;
+		<{foreach from=$category.paths_raw key=parent_id item=parent_title_raw}>
+			<a href="<{$mod_url}>/index.php?cat_id=<{$parent_id}>"><{$parent_title_raw|escape}></a>
+		&nbsp;&gt;
+		<{/foreach}>
+		<a href="<{$mod_url}>/index.php?forum_id=<{$forum.id}>"><{$forum.title}></a>
+		&nbsp;&gt;
+		<a href="<{$mod_url}>/index.php?topic_id=<{$topic.id}>"><{$topic.title}></a>
+	<{/strip}>
+</div>
+<{/if}>
+
+<h1 class="d3f_title"><{$post.subject}></h1>
+
+<{include file="db:`$dirname`_comment_inc_summary.html"}>
+
+<{if $topic.external_link_id}>
+<div class="d3f_link">
+<{$posts|@count|string_format:$smarty.const._MD_XCFORUM_FMT_POSTDISPLAYSINFO}>
+<a href="<{$mod_url}>/index.php?forum_id=<{$forum.id}>&amp;external_link_id=<{$topic.external_link_id|escape:"url"}>"><{$smarty.const._MD_XCFORUM_LINK_LISTALLCOMMENTS}></a>
+</div><!-- /d3f_link -->
+<{/if}>
+
+<!-- start post tree  -->
+<div class="d3f_post_tree">
+    <h2 class="head">
+        <{$smarty.const._MD_XCFORUM_POSTSTREE}>
+    </h2>
+    <ul class='d3f_eachbranch'>
+    <{foreach from=$postsObj item=post}>
+    <{if $post->getShow('topic_id') == $topicObj->getShow('topic_id')}>
+    <li><span style='padding-left:<{$post->getShow('depth_in_tree')}>0px;'<{if $post->getShow('post_id') == $postObj->getShow('post_id')}> class='d3f_eachbranchitem'<{/if}>>
+        <{assign var=icon value=$post->getShow('icon')}>
+         <{if $post->getShow('post_id') != $postObj->getShow('post_id')}><a href="<{$mod_url}>/index.php?action=PostsView&amp;post_id=<{$post->getShow('post_id')}>" id="post_path<{$post->getShow('unique_path')}>" name="post_path<{$post->getShow('unique_path')}>"><{/if}><img src="<{$mod_imageurl}>/posticon<{$post->getShow('icon')}>.gif" alt="<{$icon_meanings[$icon]}>" /> <{$post->getShow('subject')}><{if $post->getShow('post_id') != $postObj->getShow('post_id')}></a><{/if}>
+        (<{$post->getShow('poster_dispname')}>, <{$post->getShow('post_time')|formattimestamp}>)
+        <{if $forumObj->getShow('isadminormod')}><a href="<{$mod_url}>/index.php?page=cutpasteposts&amp;post_id=<{$post->getShow('post_id')}>"><img src="<{$mod_imageurl}>/adminicon_cutpaste.gif" alt="<{$smarty.const._MD_XCFORUM_CUTPASTEPOSTS}>" /></a><{/if}></span>
+       <{if $post->getShow('post_id') == $postObj->getShow('post_id')}><span style="color:red;font-weight:bold;">&#171;</span><{/if}>
+     </li>
+     <{/if}>
+    <{/foreach}>
+    </ul>
+    <{* $postorder *}>
+</div>
+<!-- end post tree  -->
+
+<!-- start topic list  -->
+<{if $topic.external_link_id && ($tree_tp_count>1)}>
+<h2 class="head"><{$smarty.const._MD_XCFORUM_LINK_LISTALLCOMMENTS}></h2>
+<{foreach from=$topics item=post}>
+  <{if ($post->getShow('depth_in_tree') == 0)}>
+   <{if $post->getShow('topic_id') == $topic.id}>
+	<{$post->getShow('ul_in')|replace:"<ul>":"<ul class='d3f_eachbranch'>\n\t"|replace:"<li>":"<li><span style='padding-left:0px;' class='d3f_eachbranchitem'>"}>
+   <{else}>
+	<{$post->getShow('ul_in')|replace:"<ul>":"<ul class='d3f_eachbranch'>\n\t"|replace:"<li>":"<li><span style='padding-left:0px;'>"}>
+   <{/if}>
+    <{assign var=icon value=$post->getShow('icon')}>
+	<a href="<{$mod_url}>/index.php?action=TopicsView&amp;topic_id=<{$post->getShow('topic_id')}>#post_id<{$post->getShow('topic_last_post_id')}>" id="post_path<{$post->getShow('unique_path')}>" name="post_path<{$post->getShow('unique_path')}>"><img src="<{$mod_imageurl}>/posticon<{$post->getShow('icon')}>.gif" alt="<{$icon_meanings[$icon]}>" /> <{$post->getShow('subject')}></a>
+	(<{$post->getShow('poster_dispname')}>, <{$post->getShow('post_time')|formattimestamp}>)
+	<{if $forum.isadminormod}><a href="<{$mod_url}>/index.php?page=topicmanager&amp;topic_id=<{$post->getShow('topic_id')}>"><img src="<{$mod_imageurl}>/adminicon_cutpaste.gif" alt="<{$smarty.const._MD_XCFORUM_CUTPASTEPOSTS}>" /></a><{/if}>
+	<{if $post->getShow('topic_id') == $topic.id}><span style="color:red;"><{$smarty.const._MD_XCFORUM_THIS_TOPIC}></span><{/if}>
+  <{/if}>
+<{$post->getShow('ul_out')}>
+<{/foreach}>
+<{/if}>
+<!-- end post tree  -->
+<!-- start topic list  -->
+<{if $external_link_id && ($tree_tp_count>1)}>
+<h2 class="head"><{$smarty.const._MD_XCFORUM_TOPIC}></h2>
+<ul class='d3f_eachbranch'>
+    <{foreach from=$topics item=post}>
+    <li><span style='padding-left:0px; padding-top: 0;'<{if ($post->getShow('topic_id')==$topicObj->getShow('topic_id'))}> class='d3f_eachbranchitem'<{/if}>>
+        <{assign var=icon value=$post->getShow('icon')}>
+        <{if ($post->getShow('topic_id')!=$topicObj->getShow('topic_id'))}><a href="<{$mod_url}>/index.php?action=TopicsView&amp;topic_id=<{$post->getShow('topic_id')}>#post_id<{$post->getShow('post_id')}>" id="post_path<{$post->getShow('unique_path')}>" name="post_path<{$post->getShow('unique_path')}>"><{/if}><img src="<{$mod_imageurl}>/posticon<{$post->getShow('icon')}>.gif" alt="<{$icon_meanings[$icon]}>" /> <{$post->getShow('subject')}><{if ($post->getShow('topic_id')!=$topicObj->getShow('topic_id'))}></a><{/if}>
+        (<{$post->getShow('poster_dispname')}>, <{$post->getShow('topic_first_post_time')|formattimestamp}>)
+        <{if $forumObj->getShow('isadminormod')}><a href="<{$mod_url}>/index.php?page=topicmanager&amp;topic_id=<{$post->getShow('topic_id')}>"><img src="<{$mod_imageurl}>/adminicon_cutpaste.gif" alt="<{$smarty.const._MD_XCFORUM_CUTPASTEPOSTS}>" /></a><{/if}>
+        <{if ($post->getShow('topic_id')==$topicObj->getShow('topic_id')) && ($post->getShow('depth_in_tree')==0)}><span style=color:red;><{$smarty.const._MD_XCFORUM_THIS_TOPIC}></span><{/if}>
+    </li>
+    <{/foreach}>
+</ul>
+<{/if}>
+<!-- end topic list  -->
+
+
+<br />
+<p class="d3f_topicinfo"><a href="<{$mod_url}>/index.php?action=TopicsView&amp;topic_id=<{$topicObj->getShow('topic_id')}>"><{$smarty.const._MD_XCFORUM_LINK_LISTPOSTS}></a></p>
+
+<div class="d3f_wrap">
+    <{include file="db:`$dirname`_inc_eachpost.html"  post=$postObj caller="viewpost" inner_link_format="`$mod_url`/index.php?action=PostsView&amp;post_id=%s"}>
+</div>
+
+<!-- quick reply form -->
+<{if $post->getShow('can_reply')}>
+	<{include file="db:`$dirname`_inc_post_form_quick.html" uname=$_uname h2_title=$smarty.const._MD_XCFORUM_REPLYTHISPOST quick_form_mode="reply" subject_raw=$subject_raw|ltrim:'Re: '|string_format:$smarty.const._MD_XCFORUM_FMT_COMMENTSUBJECT|escape}>
+<{/if}>
+
+<!-- forum jump -->
+<form name="forum_jump_box" action="<{$mod_url}>/index.php" method="get" style="clear:both;">
+	<p>
+		<select name="forum_id"><{$forum_jumpbox_options}></select>
+		<input type="submit" value="<{$smarty.const._MD_XCFORUM_BTN_JUMPTOFORUM}>" />
+		&nbsp;
+		<a href="<{$mod_url}>/index.php?page=search"><{$smarty.const._MD_XCFORUM_LINK_ADVSEARCH}></a>
+	</p>
+</form>
+
+<hr class="notification" />
+
+<{include file='db:system_notification_select.html'}>
+<!-- end module contents -->

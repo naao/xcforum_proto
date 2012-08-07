@@ -1,0 +1,35 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_POSTVOTES_EDIT}></h1>
+<{if $actionForm->hasError()}>
+  <ul class="error">
+    <{foreach item=message from=$actionForm->getErrorMessages()}>
+      <li><{$message|xoops_escape}></li>
+    <{/foreach}>
+  </ul>
+<{/if}>
+<form action="<{xoops_cooluri dirname=$dirname dataname=postvotes action=edit}>" method="post">
+  <dl class="edit">
+
+  <{xoops_input type=hidden name=vote_id value=$actionForm->get('vote_id')}>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POST_ID}></dt>
+  <dd><{xoops_input type=text name=post_id value=$actionForm->get('post_id') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_VOTE_POINT}></dt>
+  <dd><{xoops_input type=text name=vote_point value=$actionForm->get('vote_point') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_VOTE_TIME}></dt>
+  <dd><{xoops_input type=text name=vote_time value=$actionForm->get('vote_time') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_VOTE_IP}></dt>
+  <dd><{xoops_input type=text name=vote_ip value=$actionForm->get('vote_ip') size=10}></dd>
+
+    <dt></dt>
+    <dd>
+      <{xoops_token form=$actionForm}>
+      <input type="submit" value="<{$smarty.const._SUBMIT}>" />
+      <input type="submit" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel" />
+    </dd>
+  </dl>
+</form>
+</div>

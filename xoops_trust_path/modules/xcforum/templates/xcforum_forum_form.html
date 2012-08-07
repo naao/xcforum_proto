@@ -1,0 +1,166 @@
+<!-- start module contents -->
+<{if $mod_config.show_breadcrumbs}>
+<div class="d3f_breadcrumbs">
+	<a href="<{$mod_url}>/index.php?cat_id=<{$actionForm->get('forum_id')}>"><{$category.title}></a> &gt; <{$smarty.const._MD_XCFORUM_FORUMMANAGER}>
+</div>
+<{/if}>
+
+<h1 class="head"><{$smarty.const._MD_XCFORUM_FORUMMANAGER}></h1>
+
+<{if $actionForm->hasError()}>
+<ul class="error">
+    <{foreach item=message from=$actionForm->getErrorMessages()}>
+    <li><{$message|xoops_escape}></li>
+    <{/foreach}>
+</ul>
+<{/if}>
+
+
+<{if $mod_isadmin}>
+	<p><a href="<{$mod_url}>/admin/index.php?action=ForumaccessEdit&amp;forum_id=<{$actionForm->get('forum_id')}>"><{$smarty.const._MD_XCFORUM_LINK_FORUMACCESS}></a></p>
+<{/if}>
+
+<h2 class="itemHead"><{$object->getshow('forum_title')}></h2>
+<form name="forumform" id="forumform" action="<{$mod_url}>/index.php?action=ForumsEdit&amp;forum_id=<{$actionForm->get('forum_id')}>" method="post" onsubmit="return xoopsFormValidate_forumform();">
+    <{xoops_input type=hidden name=forum_id value=$actionForm->get('forum_id')}>
+	<table width="100%" class="outer d3f_form_table" cellspacing="1">
+ 		<tr valign="top" align="left">
+			<td class="head"><label for="forum_title"><{$smarty.const._MD_XCFORUM_TH_FORUMTITLE}></label></td>
+			<td class="even">
+                <{xoops_input type=text name=forum_title value=$actionForm->get('forum_title') size=20 maxlength=255 class="required"}>
+			</td>
+		</tr>
+
+		<tr valign="top" align="left">
+			<td class="head"><label for="forum_desc"><{$smarty.const._MD_XCFORUM_TH_FORUMDESC}></label></td>
+			<td class="even">
+                <{xoops_textarea type=text name=forum_desc value=$actionForm->get('forum_desc')}>
+			</td>
+		</tr>
+
+		<{if $mod_isadmin}>
+
+        <{if $accessController->getAccessControllerType()!='none'}>
+        <tr valign="top" align="left">
+			<td class="head"><label for="cat_id"><{$smarty.const._MD_XCFORUM_CATEGORY}></label></td>
+			<td class="even">
+                <dt class="required"></dt>
+                <dd><select name="category_id">
+                    <{legacy_category_select tree=$accessController->getTree('forum') selectedValue=$actionForm->get('category_id')}>
+                </select></dd>
+			</td>
+		</tr>
+        <{else}>
+        <{xoops_input type="hidden" name="category_id" value="0"}>
+        <{/if}>
+
+
+		<tr valign="top" align="left">
+			<td class="head"><label for="forum_weight"><{$smarty.const._MD_XCFORUM_TH_FORUMWEIGHT}></label></td>
+			<td class="even">
+                <{xoops_input type=text name=forum_weight value=$actionForm->get('forum_weight') size=10}>
+			</td>
+		</tr>
+
+		<tr valign="top" align="left">
+			<td class="head"><label for="forum_external_link_format"><{$smarty.const._MD_XCFORUM_TH_EXTERNALLINKFORMAT}></label></td>
+			<td class="even">
+                <{xoops_input type=text name=forum_external_link_format value=$actionForm->get('forum_external_link_format') size=20 maxlength=255}>
+				<br />
+				<{$smarty.const._MD_XCFORUM_HELP_EXTERNALLINKFORMAT}>
+			</td>
+		</tr>
+
+		<tr valign="top" align="left">
+			<td class="head">
+                <{$smarty.const._MD_XCFORUM_TH_FORUMOPTIONS}>
+			</td>
+			<td class="even">
+				<input type="checkbox" id="forum_option_controller_onoff" onclick="if(this.checked){xoopsGetElementById('forum_option_controller').style.display='block';}else{xoopsGetElementById('forum_option_controller').style.display='none';};"  <{if $forum.options}>checked="checked"<{/if}> /><label for="forum_option_controller_onoff"><{$smarty.const._MD_XCFORUM_ONOFF}></label>
+				<div id="forum_option_controller" <{if !$forum_options}>style="display:none;"<{/if}>>
+					<textarea name="forum_options" id="forum_options" cols="50" rows="10"><{$forum_options}></textarea>
+					<br />
+					<{$smarty.const._MD_XCFORUM_HOWTO_OVERRIDEOPTIONS}>:
+					<br />
+                <span class="forumoptiondesc"><{$forum_options_desc}></span>
+				</div>
+			</td>
+		</tr>
+
+		<{/if}>
+
+	</table>
+
+	<{if !$mod_isadmin}>
+    <{xoops_input type=hidden name=forum_weight value=$actionForm->get('forum_weight')}>
+	<{/if}>
+
+	<p class="d3f_submit"><input type="submit" name="forumman_post" value="<{$smarty.const._SUBMIT}>" />
+	<{if $page == 'forummanager' }>
+	<input type="submit" name="forumman_delete" value="<{$smarty.const._DELETE}>" onclick="return confirm('<{$smarty.const._MD_XCFORUM_MSG_CONFIRMDELETERECURSIVE}>')" />
+	<{/if}></p>
+    <{xoops_token form=$actionForm}>
+</form>
+
+<!-- Start Form Vaidation JavaScript //-->
+<script type="text/javascript">
+<!--//
+function xoopsFormValidate_forumform() {
+	myform = window.document.forumform;
+	if ( myform.title.value == "" ) { window.alert("<{$smarty.const._MD_XCFORUM_TH_FORUMTITLE|string_format:$smarty.const._FORM_ENTER}>"); myform.title.focus(); return false; }
+	return true;
+}
+//--></script>
+<!-- End Form Vaidation JavaScript //-->
+
+
+
+<{if $forum.id > 0 && $mod_isadmin}>
+
+<br />
+
+<form name="forummanager_export" id="forummanager_export" action="<{$mod_url}>/index.php?page=<{$page}>&amp;cat_id=<{$category.id}>&amp;forum_id=<{$forum.id}>" class="outer head" method="post">
+
+	<select name="export_mid" id="export_mid" onchange="d3forum_showhide_category_select(this);"><{html_options options=$export_to_module_options}></select>
+
+	<select name="export_cat_id[0]" id="export_cat_id_0">
+		<option value="0">----</option>
+	</select>
+	<{foreach from=$export_to_cat_options key="ex_cat_id" item="ex_options"}>
+		<select name="export_cat_id[<{$ex_cat_id}>]" id="export_cat_id_<{$ex_cat_id}>">
+			<option value="0">----</option>
+			<{$ex_options}>
+		</select>
+	<{/foreach}>
+
+	<br />
+	<input type="submit" name="forumman_export_move" value="<{$smarty.const._MD_XCFORUM_BTN_MOVEFORUMTOOTHERFORUM}>" onclick="return confirm('<{$smarty.const._MD_XCFORUM_MSG_CONFIRMOK}>')" />
+	<input type="submit" name="forumman_export_copy" value="<{$smarty.const._MD_XCFORUM_BTN_COPYFORUMTOOTHERFORUM}>" onclick="return confirm('<{$smarty.const._MD_XCFORUM_MSG_CONFIRMOK}>')" />
+	<{$gticket_hidden}>
+
+</form>
+
+
+<script type="text/javascript">
+<!--//
+
+d3forum_showhide_category_select( xoopsGetElementById("export_cat_id_0") ) ;
+
+function d3forum_showhide_category_select(select)
+{
+	selected_val = select.options[select.selectedIndex].value ;
+	form = select.form ;
+	for( i = 0 ; i < form.elements.length ; i ++ ) {
+		if( form.elements[i].name.match(/export_cat_id/) ) {
+			if( form.elements[i].id == "export_cat_id_" + selected_val ) {
+				form.elements[i].style.display = "inline" ;
+			} else {
+				form.elements[i].style.display = "none" ;
+			}
+		}
+	}
+}
+//-->
+</script>
+
+<{/if}>

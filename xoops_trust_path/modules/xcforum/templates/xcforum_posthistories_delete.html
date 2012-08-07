@@ -1,0 +1,23 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_POSTHISTORIES_DELETE}></h1>
+
+<div class="confirm"><{$smarty.const._MD_XCFORUM_MESSAGE_CONFIRM_DELETE}></div>
+
+<form action="<{xoops_cooluri dirname=$dirname dataname=posthistories action=delete}>" method="post">
+  <dl class="edit">
+  <dt><{$smarty.const._MD_XCFORUM_LANG_HISTORY_ID}></dt>
+  <dd><{$object->getShow('history_id')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_DATA}></dt>
+  <dd><{$object->getShow('data')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POSTTIME}></dt>
+  <dd><{$object->getShow('posttime')|xoops_formattimestamp:m}></dd>
+
+    <dd>
+      <{xoops_token form=$actionForm}>
+      <{xoops_input type=hidden name=history_id value=$actionForm->get('history_id')}>
+      <input type="submit" class="formButton" value="<{$smarty.const._DELETE}>"/>
+      <input type="submit" class="formButton" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel"/>
+    </dd>
+  </dl>
+</form>
+</div>

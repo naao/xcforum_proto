@@ -1,0 +1,255 @@
+<!-- start module contents -->
+<{if $mod_config.show_breadcrumbs}>
+<div class="d3f_breadcrumbs">
+    <a href="<{$mod_url}>/index.php"><{$smarty.const._MD_XCFORUM_TOP}></a>
+    &nbsp;&gt;&nbsp;
+    <a href="<{$mod_url}>/index.php?cat_id=<{$category.id}>"><{$category.title}></a>
+    &nbsp;&gt;&nbsp;<a href="<{$mod_url}>/index.php?forum_id=<{$forum.id}>"><{$forum.title}></a>
+    &nbsp;&gt;&nbsp;<{if $topic.id}><a href="<{$mod_url}>/index.php?topic_id=<{$topic.id}>"><{$topic.title}></a><{/if}>
+</div>
+<{/if}>
+
+<{if $actionForm->hasError()}>
+<ul class="error">
+    <{foreach item=message from=$actionForm->getErrorMessages()}>
+    <li><{$message|xoops_escape}></li>
+    <{/foreach}>
+</ul>
+<{/if}>
+
+<h1 class="d3f_title"><{$formtitle}>: <{$forum.title}></h1>
+
+<{if $mode == "edit"}>
+<p style="background-color:#900;color:#fff;"><strong><{$smarty.const._MD_XCFORUM_NOTICE_YOUAREEDITING}></strong></p>
+<{/if}>
+
+<{if $ispreview}>
+<dl id="post_preview" class="outer">
+    <dt class="head"><{$preview_subject}></dt>
+    <dd class="odd"><{$preview_message}></dd>
+</dl>
+<{/if}>
+
+<{include file="db:`$mydirname`_inc_d3comment_summary.html"}>
+
+<form name="postform" id="postform" action="<{$mod_url}>/index.php?action=PostsEdit" method="post">
+
+    <p style="display:none;">
+        <{xoops_input type=hidden name=mode value=$mode}>
+        <{xoops_input type=hidden name=pid value=$actionForm->get('pid')}>
+        <{xoops_input type=hidden name=post_id value=$actionForm->get('post_id')}>
+        <{xoops_input type=hidden name=topic_id value=$actionForm->get('topic_id')}>
+        <{xoops_input type=hidden name=forum_id value=$forum_id}>
+        <{xoops_input type=hidden name=external_link_id value=$actionForm->get('external_link_id')|escape}>
+        <{xoops_input type=hidden name=reference_quote value=$reference_quote}>
+    </p>
+
+    <table class="outer">
+        <tr valign="top" align="left">
+            <td class="head"><label for="subject"><{$smarty.const._MD_XCFORUM_SUBJECT}></label></td>
+            <td class="even">
+                <{xoops_input type=text name=subject value=$actionForm->get('subject') size=40 maxlength=255 class="required"}>
+            </td>
+        </tr>
+
+        <{if $post.poster_uid}>
+        <!-- begin edit USER's post -->
+        <tr valign="top" align="left">
+            <td class="head">User Uname</td>
+            <td class="even">
+                <{$post.poster_uname|string_format:$smarty.const._MD_XCFORUM_FMT_UNAME}>
+            </td>
+        </tr>
+        <!-- end edit USER's post -->
+        <{elseif $uid && ! $post.id}>
+        <!-- begin post by USER newly -->
+        <tr valign="top" align="left">
+            <td class="head"><{$smarty.const._MD_XCFORUM_TH_UNAME}></td>
+            <td class="even">
+                <{$uname|string_format:$smarty.const._MD_XCFORUM_FMT_UNAME}>
+            </td>
+        </tr>
+        <!-- end post by USER newly -->
+        <{else}>
+        <!-- begin GUEST's new post or edit GUEST's post by somebody -->
+        <tr valign="top" align="left">
+            <td class="head"><label for="guest_name"><{$smarty.const._MD_XCFORUM_TH_GUESTNAME}></label></td>
+            <td class="even">
+                <{xoops_input type=text name=guest_name value=$actionForm->get('guest_name') size=20 maxlength=30}>
+            </td>
+        </tr>
+        <{*
+        <tr valign="top" align="left">
+            <td class="head"><label for="guest_email"><{$smarty.const._MD_XCFORUM_TH_GUESTEMAIL}></label></td>
+            <td class="even">
+                <{xoops_input type=text name=guest_email value=$actionForm->get('guest_email') size=40 maxlength=60}>
+            </td>
+        </tr>
+        *}>
+        <tr valign="top" align="left">
+            <td class="head"><label for="guest_url"><{$smarty.const._MD_XCFORUM_TH_GUESTURL}></label></td>
+            <td class="even">
+                <{xoops_input type=text name=guest_url value=$actionForm->get('guest_url') size=40 maxlength=100}>
+            </td>
+        </tr>
+        <{*
+        <tr valign="top" align="left">
+            <td class="head"><label for="guest_pass"><{$smarty.const._MD_XCFORUM_TH_GUESTPASSWORD}></label></td>
+            <td class="even">
+                <{xoops_input type=text name=guest_pass_md5 value=$actionForm->get('guest_pass_md5') size=20 maxlength=20}>
+            </td>
+        </tr>
+        *}>
+        <!-- end GUEST's new post or edit GUEST's post by somebody -->
+        <{/if}>
+
+        <tr valign="top" align="left">
+            <td class="head"><label for="message_icon"><{$smarty.const._MD_XCFORUM_MESSAGEICON}></label></td>
+            <td class="even">
+                <select name="icon" id="message_icon">
+                    <{xoops_input type=select name=icon id="message_icon" options=$icon_options selected=$icon_selected}>
+                </select>
+            </td>
+        </tr>
+        <tr valign="top" align="left">
+            <td class="head"><label for="message"><{$smarty.const._MD_XCFORUM_TH_BODY}></label></td>
+            <td class="even">
+                <{if $body_wysiwyg}>
+                <{$body_wysiwyg}>
+                <{else}>
+                <input type="checkbox" id="message_bbcode_onoff" onclick="if(this.checked){xoopsGetElementById('message_bbcode_buttons_pre').style.display='block';xoopsGetElementById('message_bbcode_buttons_post').style.display='block'}else{xoopsGetElementById('message_bbcode_buttons_pre').style.display='none';xoopsGetElementById('message_bbcode_buttons_post').style.display='none'};" /><label for="message_bbcode_onoff"><{$smarty.const._MD_XCFORUM_LABEL_INPUTHELPER}></label>
+                <br />
+                <{xoopsdhtmltarea name="post_text" cols="60" rows="15" value=$actionForm->get('post_text') pre_style="display:none;" post_style="display:none;"}>
+                <{/if}>
+                <{if $reference_quote}>
+                <br />
+                <input type="button" name="quote" id="quote" onclick="d3forum_quote_message();" value="<{$smarty.const._MD_XCFORUM_BTN_QUOTE}>" />
+                <{/if}>
+            </td>
+        </tr>
+        <tr valign="top" align="left">
+            <td class="head"><{$smarty.const._MD_XCFORUM_OPTIONS}></td>
+            <td class="even">
+
+                <!-- approval -->
+                <{* if $forum.isadminormod && $mode == "edit" && ! $post.approval *}>
+                <input type="checkbox" name="approval" id="legacy_xoopsform_approval" value="1" <{if $actionForm->get('approval')==1}>chceked="checked"<{/if}> /><label for="approval"><{$smarty.const._MD_XCFORUM_LABEL_DOAPPROVAL}></label>
+                <br />
+                <{* /if *}>
+
+                <!-- solve or not -->
+                <{* if $can_change_solved *}>
+                <input type="checkbox" name="solved" id="legacy_xoopsform_solved" value="1" <{if $actionForm->get('solved')==1}>checked="checked"<{/if}> /><label for="solved"><{$smarty.const._MD_XCFORUM_TH_SOLVED}></label>
+                <br />
+                <{* /if *}>
+
+                <!-- mark -->
+                <{* if $allow_mark *}>
+                <input type="checkbox" name="u2t_marked" id="legacy_xoopsform_u2t_marked" value="1" <{if $u2t_marked_checked==1}>checked="checked"<{/if}> /><label for="u2t_marked"><{$smarty.const._MD_XCFORUM_MARK_TURNON}></label>
+                <br />
+                <{* /if *}>
+
+                <!-- html -->
+                <{* if $allow_html *}>
+                <input type="checkbox" name="html" id="legacy_xoopsform_html" value="1" <{if $actionForm->get('html')==1}>checked="checked"<{/if}> /><label for="html"><{$smarty.const._MD_XCFORUM_ENABLEHTML}></label>
+                <br />
+                <{* /if *}>
+
+                <fieldset>
+                    <legend>
+                        <input type="checkbox" id="d3f_post_advanced_options_onoff" onclick="if(this.checked){xoopsGetElementById('d3f_post_advanced_options').style.display='block';}else{xoopsGetElementById('d3f_post_advanced_options').style.display='none';};" /><label for="d3f_post_advanced_options_onoff"><{$smarty.const._MD_XCFORUM_LABEL_ADVANCEDOPTIONS}></label>
+                    </legend>
+
+                    <div id="d3f_post_advanced_options" style="display:none;">
+
+                        <!-- smiley -->
+                        <input type="checkbox" name="smiley" id="legacy_xoopsform_smiley" value="1" <{if $actionForm->get('smiley')==1}>checked="checked"<{/if}> /><label for="smiley"><{$smarty.const._MD_XCFORUM_ENABLESMILEY}></label>
+                        <br />
+
+                        <!-- xcode -->
+                        <input type="checkbox" name="xcode" id="legacy_xoopsform_xcode" value="1" <{if $actionForm->get('xcode')==1}>checked="checked"<{/if}> /><label for="xcode"><{$smarty.const._MD_XCFORUM_ENABLEXCODE}></label>
+                        <br />
+
+                        <!-- br -->
+                        <input type="checkbox" name="br" id="legacy_xoopsform_br" value="1" <{if $actionForm->get('br')==1}>checked="checked"<{/if}> /><label for="br"><{$smarty.const._MD_XCFORUM_ENABLEBR}></label>
+                        <br />
+
+                        <!-- number_entity -->
+                        <input type="checkbox" name="number_entity" id="legacy_xoopsform_number_entity" value="1" <{if $actionForm->get('number_entity')==1}>checked="checked"<{/if}> /><label for="number_entity"><{$smarty.const._MD_XCFORUM_ENABLENUMBERENTITY}></label>
+                        <br />
+
+                        <!-- special_entity -->
+                        <input type="checkbox" name="special_entity" id="legacy_xoopsform_special_entity" value="1" <{if $actionForm->get('special_entity')==1}>checked="checked"<{/if}> /><label for="special_entity"><{$smarty.const._MD_XCFORUM_ENABLESPECIALENTITY}></label>
+                        <br />
+
+                        <!-- hide_uid -->
+                        <{* if $allow_hideuid *}>
+                        <input type="checkbox" name="hide_uid" id="legacy_xoopsform_hide_uid" value="1" <{if $hide_uid_checked==1}>checked="checked"<{/if}> /><label for="hide_uid"><{$smarty.const._MD_XCFORUM_LABEL_HIDEUID}></label>
+                        <br />
+                        <{* /if *}>
+
+                        <!-- signature -->
+                        <{* if $allow_sig *}>
+                        <input type="checkbox" name="attachsig" id="legacy_xoopsform_attachsig" value="1" <{if $actionForm->get('attachsig')==1}>checked="checked"<{/if}> /><label for="attachsig"><{$smarty.const._MD_XCFORUM_LABEL_ATTACHSIG}></label>
+                        <br />
+                        <{* /if *}>
+
+                        <!-- notification thread-new_post -->
+                        <{* if $allow_notify *}>
+                        <input type="checkbox" name="notify" id="legacy_xoopsform_notify" value="1" <{if $notify_checked==1}>checked="checked"<{/if}> /><label for="notify"><{$smarty.const._MD_XCFORUM_LABEL_NEWPOSTNOTIFY}></label>
+                        <br />
+                        <{* /if *}>
+
+                        <!-- invisible -->
+                        <{* if $forum.isadminormod *}>
+                        <input type="checkbox" name="invisible" id="legacy_xoopsform_invisible" value="1" <{if $actionForm->get('invisible')==1}>checked="checked"<{/if}> /><label for="invisible"><{$smarty.const._MD_XCFORUM_LABEL_POSTINVISIBLE}></label>
+                        <br />
+                        <{* /if *}>
+
+                    </div>
+                </fieldset>
+
+            </td>
+        </tr>
+    </table>
+
+    <{$antispam.html_in_form}>
+    <{xoops_token form=$actionForm}>
+
+    <p class="d3f_submit"><input type="submit" class="formButton" name="contents_preview"  id="contents_preview" value="<{$smarty.const._PREVIEW}>" />
+        <input type="submit" class="formButton" id="contents_submit" value="<{$smarty.const._SUBMIT}>" onclick="return xoopsFormValidate_postform();" /></p>
+
+</form>
+
+<!-- Start Form Vaidation JavaScript //-->
+<script type="text/javascript">
+    <!--//
+    <{$antispam.js_global}>
+
+    function xoopsFormValidate_postform() {
+        myform = window.document.postform;
+        if ( myform.subject.value.replace(/^\s+|\s+$/g,"") == "" ) { window.alert("<{$smarty.const._MD_XCFORUM_SUBJECT|string_format:$smarty.const._FORM_ENTER}>"); myform.subject.focus(); return false; }
+    <{if ! $body_wysiwyg}>
+            if ( myform.post_text.value.replace(/^\s+|\s+$/g,"") == "" ) { window.alert("<{$smarty.const._MD_XCFORUM_ERR_NOMESSAGE}>"); myform.message.focus(); return false; }
+        <{/if}>
+            <{$antispam.js_in_validate_function}>
+            return true;
+        }
+        function d3forum_quote_message() {
+            xoopsGetElementById("post_text").value = xoopsGetElementById("post_text").value + xoopsGetElementById("legacy_xoopsform_reference_quote").value ;
+        }
+    //-->
+</script>
+<!-- End Form Vaidation JavaScript //-->
+
+<{$mode}>
+<{if $mode == "reply"}>
+<p><a href="javascript:void(0);" onclick="if(xoopsGetElementById('post_reference').style.display=='none'){xoopsGetElementById('post_reference').style.display='block'}else{xoopsGetElementById('post_reference').style.display='none'};"><{$smarty.const._MD_XCFORUM_REFERENCEPOST}></a></p>
+<dl id="post_reference" class="outer" <{if $ispreview}>style="display:none;"<{/if}>>
+<dt class="head"><{$reference_subject}></dt>
+<dd class="even"><{$smarty.const._MD_XCFORUM_BY}>: <{$reference_name}> <{$smarty.const._MD_XCFORUM_ON}>: <{$reference_time_formatted}></dd>
+<dd class="odd"><{$reference_message}></dd>
+</dl>
+<{/if}>
+
+<!-- end module contents -->

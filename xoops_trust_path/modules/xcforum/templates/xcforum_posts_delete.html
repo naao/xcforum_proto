@@ -1,0 +1,51 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_POSTS_DELETE}></h1>
+
+<div class="confirm"><{$smarty.const._MD_XCFORUM_MESSAGE_CONFIRM_DELETE}></div>
+
+<form action="<{xoops_cooluri dirname=$dirname dataname=posts action=delete}>" method="post">
+  <dl class="edit">
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POST_ID}></dt>
+  <dd><{$object->getShow('post_id')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_UID}></dt>
+  <dd><{$object->getShow('uid')|xoops_user:user_name}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POSTER_IP}></dt>
+  <dd><{$object->getShow('poster_ip')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_MODIFIER_IP}></dt>
+  <dd><{$object->getShow('modifier_ip')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_SUBJECT}></dt>
+  <dd><{$object->getShow('subject')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_SUBJECT_WAITING}></dt>
+  <dd><{$object->getShow('subject_waiting')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_PATH_IN_TREE}></dt>
+  <dd><{$object->getShow('path_in_tree')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_UNIQUE_PATH}></dt>
+  <dd><{$object->getShow('unique_path')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_NAME}></dt>
+  <dd><{$object->getShow('guest_name')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_EMAIL}></dt>
+  <dd><{$object->getShow('guest_email')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_URL}></dt>
+  <dd><{$object->getShow('guest_url')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_PASS_MD5}></dt>
+  <dd><{$object->getShow('guest_pass_md5')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_TRIP}></dt>
+  <dd><{$object->getShow('guest_trip')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POST_TEXT}></dt>
+  <dd><{$object->getShow('post_text')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POST_TEXT_WAITING}></dt>
+  <dd><{$object->getShow('post_text_waiting')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_STATUS}></dt>
+  <dd><{$object->getShowStatus()}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POSTTIME}></dt>
+  <dd><{$object->getShow('posttime')|xoops_formattimestamp:m}></dd>
+
+    <dd>
+      <{xoops_token form=$actionForm}>
+      <{xoops_input type=hidden name=post_id value=$actionForm->get('post_id')}>
+      <input type="submit" class="formButton" value="<{$smarty.const._DELETE}>"/>
+      <input type="submit" class="formButton" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel"/>
+    </dd>
+  </dl>
+</form>
+</div>

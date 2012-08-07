@@ -1,0 +1,11 @@
+<{$smarty.const._MD_XCFORUM_MODERATOR}>:
+<{if $target->getModerateGroups()}>
+<{foreach from=$target->getModerateGroups() item=moderator}>
+    <{$moderator.gname}>&nbsp;
+<{/foreach}>
+<{/if}>
+<{if $target->getModerateUsers()}>
+<{foreach from=$target->getModerateUsers() item=moderator}>
+    <a href="<{$xoops_url}>/userinfo.php?uid=<{$moderator.uid}>"><{$moderator.uname}></a>
+<{/foreach}>
+<{/if}>

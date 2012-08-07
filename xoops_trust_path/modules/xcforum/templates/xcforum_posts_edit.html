@@ -1,0 +1,141 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_POSTS_EDIT}></h1>
+<{if $actionForm->hasError()}>
+  <ul class="error">
+    <{foreach item=message from=$actionForm->getErrorMessages()}>
+      <li><{$message|xoops_escape}></li>
+    <{/foreach}>
+  </ul>
+<{/if}>
+<form action="<{xoops_cooluri dirname=$dirname dataname=posts action=edit}>" method="post"multipart/form-data>
+  <dl class="edit">
+
+  <{xoops_input type=hidden name=post_id value=$actionForm->get('post_id')}>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_PID}></dt>
+  <dd><{xoops_input type=text name=pid value=$actionForm->get('pid') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_TOPIC_ID}></dt>
+  <dd><{xoops_input type=text name=topic_id value=$actionForm->get('topic_id') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POST_TIME}></dt>
+  <dd><{xoops_input type=text name=post_time value=$actionForm->get('post_time') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_MODIFIED_TIME}></dt>
+  <dd><{xoops_input type=text name=modified_time value=$actionForm->get('modified_time') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_UID_HIDDEN}></dt>
+  <dd><{xoops_input type=text name=uid_hidden value=$actionForm->get('uid_hidden') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POSTER_IP}></dt>
+  <dd><{xoops_input type=text name=poster_ip value=$actionForm->get('poster_ip') size=20 maxlength=15}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_MODIFIER_IP}></dt>
+  <dd><{xoops_input type=text name=modifier_ip value=$actionForm->get('modifier_ip') size=20 maxlength=15}></dd>
+
+  <dt class="required"><{$smarty.const._MD_XCFORUM_LANG_SUBJECT}></dt>
+  <dd><{xoops_input type=text name=subject value=$actionForm->get('subject') size=20 maxlength=255 class="required"}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_SUBJECT_WAITING}></dt>
+  <dd><{xoops_input type=text name=subject_waiting value=$actionForm->get('subject_waiting') size=20 maxlength=255}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_HTML}></dt>
+  <dd><{xoops_input type=text name=html value=$actionForm->get('html') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_SMILEY}></dt>
+  <dd><{xoops_input type=text name=smiley value=$actionForm->get('smiley') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_XCODE}></dt>
+  <dd><{xoops_input type=text name=xcode value=$actionForm->get('xcode') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_BR}></dt>
+  <dd><{xoops_input type=text name=br value=$actionForm->get('br') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_NUMBER_ENTITY}></dt>
+  <dd><{xoops_input type=text name=number_entity value=$actionForm->get('number_entity') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_SPECIAL_ENTITY}></dt>
+  <dd><{xoops_input type=text name=special_entity value=$actionForm->get('special_entity') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_ICON}></dt>
+  <dd><{xoops_input type=text name=icon value=$actionForm->get('icon') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_ATTACHSIG}></dt>
+  <dd><{xoops_input type=text name=attachsig value=$actionForm->get('attachsig') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_INVISIBLE}></dt>
+  <dd><{xoops_input type=text name=invisible value=$actionForm->get('invisible') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_APPROVAL}></dt>
+  <dd><{xoops_input type=text name=approval value=$actionForm->get('approval') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_VOTES_SUM}></dt>
+  <dd><{xoops_input type=text name=votes_sum value=$actionForm->get('votes_sum') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_VOTES_COUNT}></dt>
+  <dd><{xoops_input type=text name=votes_count value=$actionForm->get('votes_count') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_DEPTH_IN_TREE}></dt>
+  <dd><{xoops_input type=text name=depth_in_tree value=$actionForm->get('depth_in_tree') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_ORDER_IN_TREE}></dt>
+  <dd><{xoops_input type=text name=order_in_tree value=$actionForm->get('order_in_tree') size=10}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_PATH_IN_TREE}></dt>
+  <dd><{xoops_textarea type=text name=path_in_tree value=$actionForm->get('path_in_tree')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_UNIQUE_PATH}></dt>
+  <dd><{xoops_textarea type=text name=unique_path value=$actionForm->get('unique_path')}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_NAME}></dt>
+  <dd><{xoops_input type=text name=guest_name value=$actionForm->get('guest_name') size=20 maxlength=25}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_EMAIL}></dt>
+  <dd><{xoops_input type=text name=guest_email value=$actionForm->get('guest_email') size=20 maxlength=60}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_URL}></dt>
+  <dd><{xoops_input type=text name=guest_url value=$actionForm->get('guest_url') size=20 maxlength=100}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_PASS_MD5}></dt>
+  <dd><{xoops_input type=text name=guest_pass_md5 value=$actionForm->get('guest_pass_md5') size=20 maxlength=40}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_GUEST_TRIP}></dt>
+  <dd><{xoops_input type=text name=guest_trip value=$actionForm->get('guest_trip') size=20 maxlength=40}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POST_TEXT}></dt>
+  <dd><{xoops_textarea type=text name=post_text value=$actionForm->get('post_text')}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POST_TEXT_WAITING}></dt>
+  <dd><{xoops_textarea type=text name=post_text_waiting value=$actionForm->get('post_text_waiting')}></dd>
+
+    <{if $tag_dirname}>
+    <dt><{$smarty.const._TAG}></dt>
+    <dd>
+      <{xoops_input type=text name=tags value=$actionForm->get('tags')}>
+      <{legacy_tag_select tDirname=$tag_dirname tags=$object->mTag}>
+    </dd>
+    <{/if}>
+    <{assign var=imageObjs value=$object->getImages()}>
+    <{section name=image loop=$object->getImageNumber()+1 start=1}>
+      <{assign var=num value=$smarty.section.image.index}>
+      <dt>Image <{$num}></dt>
+      <dd>
+        <{if $imageObjs[$num] && $imageObjs[$num]->isNew()===false}>
+        <{xoops_input type="checkbox" name="legacy_image_delete[$num]" value="1"}>
+        <{$imageObjs[$num]->makeImageTag()}><br />
+        <{/if}>
+        <{xoops_input type="file" name="legacy_image[$num]" size="30"}>
+        <{if $imageObjs[$num]}>
+        <{xoops_input type="hidden" name="legacy_image_id[$num]" value=$imageObjs[$num]->getShow('image_id')}>
+        <{else}>
+        <{xoops_input type="hidden" name="legacy_image_id[$num]" value=0}>
+        <{/if}>
+      </dd>
+    <{/section}>
+
+    <dt></dt>
+    <dd>
+      <{xoops_token form=$actionForm}>
+      <input type="submit" value="<{$smarty.const._SUBMIT}>" />
+      <input type="submit" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel" />
+    </dd>
+  </dl>
+</form>
+</div>

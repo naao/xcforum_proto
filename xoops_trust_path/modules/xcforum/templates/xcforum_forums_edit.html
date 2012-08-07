@@ -1,0 +1,82 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_FORUMS_EDIT}></h1>
+<{if $actionForm->hasError()}>
+  <ul class="error">
+    <{foreach item=message from=$actionForm->getErrorMessages()}>
+      <li><{$message|xoops_escape}></li>
+    <{/foreach}>
+  </ul>
+<{/if}>
+<form action="<{$mod_url}>/index.php?action=ForumsEdit&amp;cat_id=<{$actionForm->get('category_id')}>&amp;forum_id=<{$actionForm->get('forum_id')}>" method="post"multipart/form-data>
+  <dl class="edit">
+
+  <{xoops_input type=hidden name=forum_id value=$actionForm->get('forum_id')}>
+  <{if $accessController->getAccessControllerType()!='none'}>
+  <dt class="required"><{$smarty.const._MD_XCFORUM_LANG_CATEGORY_ID}></dt>
+  <dd><select name="category_id">
+    <{legacy_category_select tree=$accessController->getTree('post') selectedValue=$actionForm->get('category_id')}>
+  </select></dd>
+  <{else}>
+  <{xoops_input type="hidden" name="category_id" value="0"}>
+  <{/if}>
+
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_EXTERNAL_LINK_FORMAT}></dt>
+  <dd><{xoops_input type=text name=forum_external_link_format value=$actionForm->get('forum_external_link_format') size=20 maxlength=255}></dd>
+
+  <dt class="required"><{$smarty.const._MD_XCFORUM_LANG_FORUM_TITLE}></dt>
+  <dd><{xoops_input type=text name=forum_title value=$actionForm->get('forum_title') size=20 maxlength=255 class="required"}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_DESC}></dt>
+  <dd><{xoops_textarea type=text name=forum_desc value=$actionForm->get('forum_desc')}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_TOPICS_COUNT}></dt>
+  <dd><{xoops_input type=text name=forum_topics_count value=$actionForm->get('forum_topics_count') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_POSTS_COUNT}></dt>
+  <dd><{xoops_input type=text name=forum_posts_count value=$actionForm->get('forum_posts_count') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_LAST_POST_ID}></dt>
+  <dd><{xoops_input type=text name=forum_last_post_id value=$actionForm->get('forum_last_post_id') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_LAST_POST_TIME}></dt>
+  <dd><{* xoops_input type=text name=forum_last_post_time value=$actionForm->get('forum_last_post_time') size=10 *}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_WEIGHT}></dt>
+  <dd><{xoops_input type=text name=forum_weight value=$actionForm->get('forum_weight') size=10}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FORUM_OPTIONS}></dt>
+  <dd><{xoops_textarea type=text name=forum_options value=$actionForm->get('forum_options')}></dd>
+
+    <{if $tag_dirname}>
+    <dt><{$smarty.const._TAG}></dt>
+    <dd>
+      <{xoops_input type=text name=tags value=$actionForm->get('tags')}>
+      <{legacy_tag_select tDirname=$tag_dirname tags=$object->mTag}>
+    </dd>
+    <{/if}>
+    <{assign var=imageObjs value=$object->getImages()}>
+    <{section name=image loop=$object->getImageNumber()+1 start=1}>
+      <{assign var=num value=$smarty.section.image.index}>
+      <dt>Image <{$num}></dt>
+      <dd>
+        <{if $imageObjs[$num] && $imageObjs[$num]->isNew()===false}>
+        <{xoops_input type="checkbox" name="legacy_image_delete[$num]" value="1"}>
+        <{$imageObjs[$num]->makeImageTag()}><br />
+        <{/if}>
+        <{xoops_input type="file" name="legacy_image[$num]" size="30"}>
+        <{if $imageObjs[$num]}>
+        <{xoops_input type="hidden" name="legacy_image_id[$num]" value=$imageObjs[$num]->getShow('image_id')}>
+        <{else}>
+        <{xoops_input type="hidden" name="legacy_image_id[$num]" value=0}>
+        <{/if}>
+      </dd>
+    <{/section}>
+
+    <dt></dt>
+    <dd>
+      <{xoops_token form=$actionForm}>
+      <input type="submit" value="<{$smarty.const._SUBMIT}>" />
+      <input type="submit" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel" />
+    </dd>
+  </dl>
+</form>
+</div>

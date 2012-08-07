@@ -1,0 +1,143 @@
+<!-- start each post -->
+<div class="itemHead">
+
+    <{if $post->getShow('poster_avatar')}>
+    <{if $post->getShow('poster_uid') != 0}><a href="<{$xoops_url}>/userinfo.php?uid=<{$post->getShow('poster_uid')}>" title="<{$post->getShow('poster_dispname')}>"><{/if}>
+    <{if $post->getShow('poster_avatar.height') > 80}>
+    <img src="<{$xoops_upload_url}>/<{$post->getShow('poster_avatar.path')}>" height="80" alt="<{$post->getShow('poster_dispname')}>" class="d3f_avatar" />
+    <{elseif $post.poster_avatar.width > 1}>
+    <img src="<{$xoops_upload_url}>/<{$post->getShow('poster_avatar_path')}>" width="<{$post->getShow('poster_avatar_width')}>" height="<{$post->getShow('poster_avatar_height')}>" alt="<{$post->getShow('poster_dispname')}>" class="d3f_avatar" />
+    <{else}>
+    <img src="<{$xoops_url}>/modules/user/images/no_avatar.gif" alt="<{$post->getShow('poster_dispname')}>" class="d3f_avatar" />
+    <{/if}>
+    <{if $post->getShow('poster_uid') != 0}></a><{/if}>
+    <{/if}>
+    <h2 class="<{if $post->getShow('invisible') || ! $post->getShow('approval') }><{if $post->getShow('invisible')}> invisible<{elseif ! $post->getShow('approval')}> yetapproval<{/if}><{/if}> itemTitle">
+        <{assign var=icon value=$post->getShow('icon')}>
+        <a id="post_id<{$post->getShow('post_id')}>" name="post_id<{$post->getShow('post_id')}>"><img src="<{$mod_imageurl}>/posticon<{$post->getShow('icon')}>.gif" alt="<{$post->getShow('icon_meanings[$icon]')}>" /></a>
+        <{if $caller == 'listposts'}>
+        <a href="<{$mod_url}>/index.php?action=PostsView&amp;post_id=<{$post->getShow('post_id')}>" id="post_path<{$post->getShow('unique_path')}>" name="post_path<{$post->getShow('unique_path')}>"><{$post->getShow('subject')}></a>
+        <{else}>
+        <{$post->getShow('subject')}>
+        <{/if}>
+    </h2>
+    <span class="d3f_msgnum"><{$smarty.const._MD_XCFORUM_UNIQUEPATHPREFIX}> <{$post->getShow('unique_path')}></span>
+</div>
+<!-- read control -->
+<div class="d3f_info">
+    <{if $postorder < 2 || $caller == 'viewpost'}>
+    <dl class="d3f_head_tree_depth" style="width:<{$post->getShow('depth_in_tree')*5|min:100}>%;">
+        <dt>depth:</dt>
+        <dd><{$post->getShow('depth_in_tree')}></dd>
+    </dl>
+    <{/if}>
+    <div class="d3f_info_val">
+        <{if $post->getShow('prev_id')}>
+        <a href="<{$post->getShow('prev_id')|string_format:$inner_link_format}>"><{$smarty.const._MD_XCFORUM_LINK_PREVPOST}></a>
+        <{else}>
+        <{$smarty.const._MD_XCFORUM_LINK_PREVPOST}>
+        <{/if}> -
+
+        <{if $post->getShow('next_id')}>
+        <a href="<{$post->getShow('next_id')|string_format:$inner_link_format}>"><{$smarty.const._MD_XCFORUM_LINK_NEXTPOST}></a>
+        <{else}>
+        <{$smarty.const._MD_XCFORUM_LINK_NEXTPOST}>
+        <{/if}> |
+
+        <{if $post->getShow('pid')}>
+        <a href="<{$post->getShow('pid')|string_format:$inner_link_format}>"><{$smarty.const._MD_XCFORUM_PARENTPOST}></a>
+        <{else}>
+        <{$smarty.const._MD_XCFORUM_PARENTPOST}>
+        <{/if}> -
+
+        <{if $post->getShow('first_child_id')}>
+        <{foreach from=$post->getShow('f1s') key="f1_id" item="f1_leaf_number" name="f1_loop"}>
+        <a href="<{$post->getShow('f1s')|string_format:$inner_link_format}>"><{if $smarty.foreach.f1_loop.first}><{$smarty.const._MD_XCFORUM_CHILDPOSTS}><{/if}><{$f1_leaf_number}></a>
+        <{/foreach}>
+        <{else}>
+        <{$smarty.const._MD_XCFORUM_NOCHILDPOSTS}>
+        <{/if}> |
+
+        <{$smarty.const._MD_XCFORUM_ON}> <{$post->getShow('post_time')|formattimestamp}> <{if $post->getShow('post_time') < $post->getShow('modified_time')|formattimestamp}> | <span title="<{$post->getShow('modified_time_formatted')}>"><{$smarty.const._MD_XCFORUM_LASTMODIFIED}><{if $xoops_isadmin}><a href="<{$mod_url}>/admin/index.php?page=post_histories&amp;post_id=<{$post->getShow('post_id')}>"}>(<{$smarty.const._MD_XCFORUM_HISTORIES}>)</a><{/if}></span><{/if}>
+    </div>
+</div>
+<!-- poster info -->
+<div class="itemInfo" style="text-align:left;">
+    <{if $post->getShow('poster_uid') != 0}><a href="<{$xoops_url}>/userinfo.php?uid=<{$post->getShow('poster_uid')}>"><{/if}><{$post->getShow('poster_dispname')}><{if $post->getShow('poster_uid') != 0}></a><{/if}>&nbsp;
+    <{if $post->getShow('poster_uid') != 0}>
+    <{if $post->getShow('poster_rank_title')}>
+    <img src="<{$xoops_upload_url}>/<{$post.poster_rank_image}>" alt="<{$post->getShow('poster_rank_title')}>"  title="<{$post->getShow('poster_rank_title')}>" />
+    <{/if}>
+    <{* <{$smarty.const._MD_XCFORUM_POSTERJOINED}>: <{$post.poster_regdate_formatted}> *}>
+    <{if $post->getShow('poster_from')}><{$smarty.const._MD_XCFORUM_POSTERFROM}>: <{$post->getShow('poster_from')}><{/if}>&nbsp;
+    <{$smarty.const._MD_XCFORUM_POSTERPOSTS}>: <{$post->getShow('poster_posts_count')}>
+    <{if $post->getShow('poster_is_online')}><{$smarty.const._MD_XCFORUM_POSTERISONLINE}><{/if}>
+    <{else}>
+    <{if $post->getShow('guest_url') || $post->getShow('guest_trip')}>
+    <{* <{$post->getShow('guest_email')}> *}>
+    <{if $post->getShow('guest_url')}><a href="<{$post->getShow('guest_url')}>" title="<{$post->getShow('guest_url')}>"><{$smarty.const._MD_XCFORUM_TH_GUESTURL}></a><{/if}>
+    <{if $post->getShow('guest_trip')}><{$smarty.const._MD_XCFORUM_TH_GUESTTRIP}>: <{$post->getShow('guest_trip')}><{/if}>
+    <{/if}>
+    <{/if}>
+</div>
+<!-- post -->
+<div class="d3f_body">
+    <{* $post->getShow('post_text', $post->getShow('html'), $post->getShow('smiley'), $post->getShow('xcode'), "1", $post->getShow('br'), $post->getShow('nbsp'), $post->getShow('number_entity'), $post->getShow('special_entity')) *}>
+    <{$post->getShow('post_text', $post)}>
+    <{if $post->getShow('signature')}>
+    <p>-- <br /><{$post->getShow('signature')}></p>
+    <{/if}>
+</div>
+
+<!-- post foot control -->
+<div class="itemFoot">
+    <{* if $forum.isadminormod *}>
+    <a href="<{$mod_url}>/index.php?page=cutpasteposts&amp;post_id=<{$post->getShow('post_id')}>" class="cutpaste"><img src="<{$mod_imageurl}>/adminicon_cutpaste.gif" alt="<{$smarty.const._MD_XCFORUM_CUTPASTEPOSTS}>" /></a> |
+    <{* /if *}>
+
+    <{if ! $post->getShow('approval') && $forum.isadminormod}>
+    <a href="<{$mod_url}>/index.php?page=update_post_approval&amp;post_id=<{$post->getShow('post_id')}>&amp;ret_name=<{$ret_name}>&amp;ret_val=<{$ret_val}>"><{$smarty.const._MD_XCFORUM_LABEL_DOAPPROVAL}></a> |
+    <{/if}>
+
+    <{if $post->getShow('can_vote') || $mod_config.use_vote && ! $post->getShow('invisible') && $post->getShow('approval')}>
+	<span class="d3f_vote">
+		<{$smarty.const._MD_XCFORUM_VOTECOUNT}>:<{$post->getShow('votes_count')}>
+		<{$smarty.const._MD_XCFORUM_VOTEPOINTAVG}>:<{$post->getShow('votes_avg')|string_format:"%.2f"}>
+	</span>
+    <{if $post->getShow('can_vote')}>
+    <form action="<{$mod_url}>/index.php" method="get" style="display:inline;">
+        <input type="hidden" name="page" value="vote_to_post" />
+        <input type="hidden" name="post_id" value="<{$post->getShow('post_id')}>" />
+        <input type="hidden" name="point" value="10" />
+        <{if $caller == 'listposts'}>
+        <input type="hidden" name="ret_name" value="topic_id" />
+        <input type="hidden" name="ret_val" value="<{$topic->getShow('post_id')}>" />
+        <{/if}>
+        <input type="submit" value="<{$smarty.const._MD_XCFORUM_VOTEPOINTDSCBEST}>" />
+    </form>
+    <form action="<{$mod_url}>/index.php" method="get" style="display:inline;">
+        <input type="hidden" name="page" value="vote_to_post" />
+        <input type="hidden" name="post_id" value="<{$post->getShow('post_id')}>" />
+        <input type="hidden" name="point" value="0" />
+        <{if $caller == 'listposts'}>
+        <input type="hidden" name="ret_name" value="topic_id" />
+        <input type="hidden" name="ret_val" value="<{$topicObj->getShow('topic_id')}>" />
+        <{/if}>
+        <input type="submit" value="<{$smarty.const._MD_XCFORUM_VOTEPOINTDSCWORST}>" />
+    </form>
+    <{/if}>
+    <{/if}>
+
+    <{if $post->getShow('can_edit')}>
+    | <a href="<{$mod_url}>/index.php?action=PostsEdit&amp;post_id=<{$post->getShow('post_id')}>"><{$smarty.const._MD_XCFORUM_POSTEDIT}></a> |
+    <{/if}>
+
+    <{if $post->getShow('can_delete')}>
+    <a href="<{$mod_url}>/index.php?action=PostsDelete&amp;post_id=<{$post->getShow('post_id')}>"><{$smarty.const._MD_XCFORUM_POSTDELETE}></a> |
+    <{/if}>
+
+    <{if $post->getShow('can_reply')}>
+    <a href="<{$mod_url}>/index.php?action=PostsEdit&amp;pid=<{$post->getShow('post_id')}>"><{$smarty.const._MD_XCFORUM_POSTREPLY}></a>
+    <{/if}>
+</div>
+<!-- end each post -->

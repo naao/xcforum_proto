@@ -1,0 +1,31 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_POSTHISTORIES_EDIT}></h1>
+<{if $actionForm->hasError()}>
+  <ul class="error">
+    <{foreach item=message from=$actionForm->getErrorMessages()}>
+      <li><{$message|xoops_escape}></li>
+    <{/foreach}>
+  </ul>
+<{/if}>
+<form action="<{xoops_cooluri dirname=$dirname dataname=posthistories action=edit}>" method="post">
+  <dl class="edit">
+
+  <{xoops_input type=hidden name=history_id value=$actionForm->get('history_id')}>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_POST_ID}></dt>
+  <dd><{xoops_input type=text name=post_id value=$actionForm->get('post_id') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_HISTORY_TIME}></dt>
+  <dd><{xoops_input type=text name=history_time value=$actionForm->get('history_time') size=10}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_DATA}></dt>
+  <dd><{xoops_textarea type=text name=data value=$actionForm->get('data')}></dd>
+
+    <dt></dt>
+    <dd>
+      <{xoops_token form=$actionForm}>
+      <input type="submit" value="<{$smarty.const._SUBMIT}>" />
+      <input type="submit" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel" />
+    </dd>
+  </dl>
+</form>
+</div>

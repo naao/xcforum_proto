@@ -1,0 +1,66 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_USERS2TOPICS}><{$smarty.const._LIST}></h1>
+<ul class="hmenu">
+  <li><a href="<{xoops_cooluri dirname=$dirname dataname=$dataname action=edit}>"><{$smarty.const._MD_XCFORUM_LANG_ADD_A_NEW_USERS2TOPICS}></a></li>
+</ul>
+
+<{if count($objects) > 0}>
+  <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
+  <table class="outer" summary="">
+    <thead>
+      <tr>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_UID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_UID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_UID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_TOPIC_ID}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_TOPIC_ID}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_TOPIC_ID}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_U2T_TIME}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_U2T_TIME}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_U2T_TIME}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_U2T_MARKED}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_U2T_MARKED}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_U2T_MARKED}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_U2T_RSV}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_U2T_RSV}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_U2T_RSV}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th>
+          <{$smarty.const._MD_XCFORUM_LANG_POSTTIME}>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_POSTTIME}>"><img src="images/up.gif" alt="<{$smarty.const._ASCENDING}>" title="<{$smarty.const._ASCENDING}>" /></a>
+          <a href="<{$pageNavi->renderUrlForSort()}>&amp;<{$pageNavi->getPrefix()}>sort=-<{$smarty.const.XCFORUM_USERS2TOPICS_SORT_KEY_POSTTIME}>"><img src="images/down.gif" alt="<{$smarty.const._DESCENDING}>" title="<{$smarty.const._DESCENDING}>" /></a>
+        </th>
+        <th><{$smarty.const._MD_XCFORUM_LANG_CONTROL}></th>
+      </tr>
+    </thead>
+    <tbody>
+      <{foreach item=obj from=$objects}>
+        <tr class="<{cycle values='odd,even'}>">
+          <td><{$obj->getShow('uid')|xoops_user:user_name}></td>
+          <td><{$obj->getShow('topic_id')}></td>
+          <td><{$obj->getShow('u2t_time')}></td>
+          <td><{$obj->getShow('u2t_marked')}></td>
+          <td><{$obj->getShow('u2t_rsv')}></td>
+          <td><{$obj->getShow('posttime')|xoops_formattimestamp:m}></td>
+
+          <td>
+            <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname data_id=$obj->getShow('uid') action=view}>"><{$smarty.const._VIEW}></a>
+            <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname data_id=$obj->getShow('uid') action=edit}>"><{$smarty.const._EDIT}></a>
+            <a href="<{xoops_cooluri dirname=$dirname dataname=$dataname data_id=$obj->getShow('uid') action=delete}>"><{$smarty.const._DELETE}></a>
+          </td>
+        </tr>
+      <{/foreach}>
+    </tbody>
+  </table>
+  <div class="pagenavi"><{xoops_pagenavi pagenavi=$pageNavi}></div>
+<{/if}>
+</div>

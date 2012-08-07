@@ -1,0 +1,51 @@
+<div class="xcforum">
+<h1><{$smarty.const._MD_XCFORUM_LANG_DEFINITION_EDIT}></h1>
+<{if $actionForm->hasError()}>
+  <ul class="error">
+    <{foreach item=message from=$actionForm->getErrorMessages()}>
+      <li><{$message|xoops_escape}></li>
+    <{/foreach}>
+  </ul>
+<{/if}>
+<form action="<{xoops_cooluri dirname=$dirname dataname=definition action=edit}>" method="post">
+  <dl class="edit">
+
+  <{xoops_input type=hidden name=definition_id value=$actionForm->get('definition_id')}>
+
+  <dt class="required"><{$smarty.const._MD_XCFORUM_LANG_FIELD_NAME}></dt>
+  <dd><{xoops_input type=text name=field_name value=$actionForm->get('field_name') size=20 maxlength=32 class="required"}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_LABEL}></dt>
+  <dd><{xoops_input type=text name=label value=$actionForm->get('label') size=20 maxlength=255}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_FIELD_TYPE}></dt>
+  <dd><{xoops_input type=text name=field_type value=$actionForm->get('field_type') size=20 maxlength=16}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_VALIDATION}></dt>
+  <dd><{xoops_input type=text name=validation value=$actionForm->get('validation') size=20 maxlength=255}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_REQUIRED}></dt>
+  <dd><{xoops_input type=text name=required value=$actionForm->get('required') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_WEIGHT}></dt>
+  <dd><{xoops_input type=text name=weight value=$actionForm->get('weight') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_SHOW_LIST}></dt>
+  <dd><{xoops_input type=text name=show_list value=$actionForm->get('show_list') size=10}></dd>
+
+  <dt><{$smarty.const._MD_XCFORUM_LANG_SEARCH_FLAG}></dt>
+  <dd><{xoops_input type=text name=search_flag value=$actionForm->get('search_flag') size=10}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_DESCRIPTION}></dt>
+  <dd><{xoops_textarea type=text name=description value=$actionForm->get('description')}></dd>
+  <dt><{$smarty.const._MD_XCFORUM_LANG_OPTIONS}></dt>
+  <dd><{xoops_textarea type=text name=options value=$actionForm->get('options')}></dd>
+
+    <dt></dt>
+    <dd>
+      <{xoops_token form=$actionForm}>
+      <input type="submit" value="<{$smarty.const._SUBMIT}>" />
+      <input type="submit" value="<{$smarty.const._CANCEL}>" name="_form_control_cancel" />
+    </dd>
+  </dl>
+</form>
+</div>

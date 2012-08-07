@@ -1,0 +1,153 @@
+<h3><{$mod_name}></h3>
+
+<!-- forum selection -->
+<form name="selectforum" action="<{$mod_url}>/admin/index.php" method="get" style="margin: 20px 0px">
+
+	<input type="hidden" name="action" value="ForumaccessEdit" />
+	<label for="select_forum_id"><{$smarty.const._MD_A_XCFORUM_LANG_SELECT_FORUM}></label>:
+	<select name="forum_id" id="select_forum_id"><{$forum_jumpbox_options}></select>
+	<input type="submit" value="<{$smarty.const._SUBMIT}>" />
+</form>
+
+<!-- forum title -->
+<p>
+	<{$smarty.const._MD_A_XCFORUM_LANG_FORUM}>:<{$forum_title}>
+	(<a href="<{$mod_url}>/index.php?action=ForumsEdit&amp;forum_id=<{$forum_id}>"><{$smarty.const._EDIT}></a>)
+</p>
+
+<!-- group form -->
+<h2 class="head"><{$smarty.const._MD_A_XCFORUM_LANG_GROUPPERMS}></h2>
+<{*form name="groupperms" action="<{$mod_url}>/admin/index.php?action=ForumaccessEdit&amp;forum_id=<{$actionForm->get('forum_id')}>" method="post" style="margin:20px 0px"*}>
+    <form name="groupperms" action="<{$mod_url}>/admin/index.php?action=ForumaccessEdit" method="post" style="margin:20px 0px">
+	<{$gticket_hidden}>
+    <input type="hidden" name="group_update" value="1" />
+    <input type="hidden" name="forum_id" value="<{$actionForm->get('forum_id')}>" />
+	<table class="outer">
+		<tr>
+			<th>
+				<{$smarty.const._MD_A_XCFORUM_LANG_GROUPNAME}>
+			</th>
+			<th>
+                <{$smarty.const._MD_A_XCFORUM_LANG_CAN_READ}>
+				<input type="checkbox" onclick="with(document.groupperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].id.indexOf('gcol_1')>=0){elements[i].checked=this.checked;}}}">
+			</th>
+			<th>
+                <{$smarty.const._MD_A_XCFORUM_LANG_CAN_POST}>
+				<input type="checkbox" onclick="with(document.groupperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].id.indexOf('gcol_2')>=0){elements[i].checked=this.checked;}}}">
+			</th>
+            <th>
+                <{$smarty.const._MD_A_XCFORUM_LANG_CAN_HTML}>
+                <input type="checkbox" onclick="with(document.groupperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].id.indexOf('gcol_3')>=0){elements[i].checked=this.checked;}}}">
+            </th>
+			<th>
+				<{$smarty.const._MD_A_XCFORUM_LANG_CAN_EDIT}>
+				<input type="checkbox" onclick="with(document.groupperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].id.indexOf('gcol_4')>=0){elements[i].checked=this.checked;}}}">
+			</th>
+			<th>
+				<{$smarty.const._MD_A_XCFORUM_LANG_CAN_DELETE}>
+				<input type="checkbox" onclick="with(document.groupperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].id.indexOf('gcol_5')>=0){elements[i].checked=this.checked;}}}">
+			</th>
+			<th>
+				<{$smarty.const._MD_A_XCFORUM_LANG_POST_AUTO_APPROVED}>
+				<input type="checkbox" onclick="with(document.groupperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].id.indexOf('gcol_6')>=0){elements[i].checked=this.checked;}}}">
+			</th>
+			<th>
+				<{$smarty.const._MD_A_XCFORUM_LANG_IS_MODERATOR}>
+				<input type="checkbox" onclick="with(document.groupperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&elements[i].id.indexOf('gcol_7')>=0){elements[i].checked=this.checked;}}}">
+			</th>
+		</tr>
+
+        <{foreach from=$grpObjects key=gid item=obj}>
+        <tr>
+            <td class='even'><{$obj->get('gname')}></td>
+            <td class='even'><input type='checkbox' name='can_read[<{$gid}>]' id='gcol_1_<{$gid}>' value='1' <{if $obj->getShow('can_read')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$gid}>][post]' id='gcol_2_<{$gid}>' value='1' <{if $obj->getShow('post')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$gid}>][html]' id='gcol_3_<{$gid}>' value='1' <{if $obj->getShow('html')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$gid}>][edit]' id='gcol_4_<{$gid}>' value='1' <{if $obj->getShow('edit')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$gid}>][delete]' id='gcol_5_<{$gid}>' value='1' <{if $obj->getShow('delete')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$gid}>][auto_approve]' id='gcol_6_<{$gid}>' value='1' <{if $obj->getShow('auto_approve')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$gid}>][moderate]' id='gcol_7_<{$gid}>' value='1' <{if $obj->getShow('moderate')==1}>checked="checked"<{/if}> /></td>
+        </tr>
+        <{/foreach}>
+
+	</table>
+    <{xoops_token form=$actionForm}>
+    <input type="submit" name="group_update" value="<{$smarty.const._SUBMIT}>" />
+</form>
+
+
+<!-- user form -->
+<h2 class="head"><{$smarty.const._MD_A_XCFORUM_LANG_USERPERMS}></h2>
+<{*form name="userperms" action="<{$mod_url}>/admin/index.php?action=ForumaccessEdit&amp;forum_id=<{$actionForm->get('forum_id')}>" method="post" style="margin:20px 0px"*}>
+    <form name="userperms" action="<{$mod_url}>/admin/index.php?action=ForumaccessEdit" method="post" style="margin:20px 0px">
+	<{$gticket_hidden}>
+    <input type="hidden" name="user_update" value="1" />
+    <input type="hidden" name="forum_id" value="<{$actionForm->get('forum_id')}>" />
+	<table class="outer">
+		<tr>
+			<th><{$smarty.const._MD_A_XCFORUM_LANG_UID}></th>
+			<th><{$smarty.const._MD_A_XCFORUM_LANG_UNAME}></th>
+			<th><{$smarty.const._MD_A_XCFORUM_LANG_CAN_READ}></th>
+			<th>
+				<{$smarty.const._MD_A_XCFORUM_LANG_CAN_POST}>
+				<input type="checkbox" onclick="with(document.userperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&(elements[i].id.indexOf('ucol_2_')>=0||elements[i].id.indexOf('ncol_2_')>=0)){elements[i].checked=this.checked;}}}">
+			</th>
+            <th>
+                <{$smarty.const._MD_A_XCFORUM_LANG_CAN_HTML}>
+                <input type="checkbox" onclick="with(document.userperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&(elements[i].id.indexOf('ucol_3')>=0||elements[i].id.indexOf('ncol_3_')>=0)){elements[i].checked=this.checked;}}}">
+            </th>
+			<th>
+				<{$smarty.const._MD_A_XCFORUM_LANG_CAN_EDIT}>
+				<input type="checkbox" onclick="with(document.userperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&(elements[i].id.indexOf('ucol_4_')>=0||elements[i].id.indexOf('ncol_4_')>=0)){elements[i].checked=this.checked;}}}">
+			</th>
+			<th>
+                <{$smarty.const._MD_A_XCFORUM_LANG_CAN_DELETE}>
+				<input type="checkbox" onclick="with(document.userperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&(elements[i].id.indexOf('ucol_5_')>=0||elements[i].id.indexOf('ncol_5_')>=0)){elements[i].checked=this.checked;}}}">
+			</th>
+			<th>
+				<{$smarty.const._MD_A_XCFORUM_LANG_POST_AUTO_APPROVED}>
+				<input type="checkbox" onclick="with(document.userperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&(elements[i].id.indexOf('ucol_6_')>=0||elements[i].id.indexOf('ncol_6_')>=0)){elements[i].checked=this.checked;}}}">
+			</th>
+			<th>
+				<{$smarty.const._MD_A_XCFORUM_LANG_IS_MODERATOR}>
+				<input type="checkbox" onclick="with(document.userperms){for(i=0;i<length;i++){if(elements[i].type=='checkbox'&&(elements[i].id.indexOf('ucol_7_')>=0||elements[i].id.indexOf('ncol_7_')>=0)){elements[i].checked=this.checked;}}}">
+			</th>
+		</tr>
+
+       <{foreach from=$usrObjects key=uid item=obj}>
+       <tr>
+            <td class='even'><{$uid}></td>
+            <td class='even'><{$obj->getShow('uname4disp')}></td>
+            <td class='even'><input type='checkbox' name='can_read[<{$uid}>]' id='ucol_1_<{$uid}>' value='1' checked='checked' /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$uid}>][post]' id='ucol_2_<{$uid}>' value='1' <{if $obj->getShow('post')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$uid}>][html]' id='ucol_3_<{$uid}>' value='1' <{if $obj->getShow('html')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$uid}>][edit]' id='ucol_4_<{$uid}>' value='1' <{if $obj->getShow('edit')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$uid}>][delete]' id='ucol_5_<{$uid}>' value='1' <{if $obj->getShow('delete')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$uid}>][auto_approve]' id='ucol_6_<{$uid}>' value='1' <{if $obj->getShow('auto_approve')==1}>checked="checked"<{/if}> /></td>
+            <td class='even'><input type='checkbox' name='permission[<{$uid}>][moderate]' id='ucol_7_<{$uid}>' value='1' <{if $obj->getShow('moderate')==1}>checked="checked"<{/if}> /></td>
+       </tr>
+        <{/foreach}>
+
+        <{section name=id loop=5 }>
+        <{assign var=i value=$smarty.section.id.index}>
+        <tr>
+            <td class='head'><input type='text' size='4' name='new_uid[<{$i}>]' value='' /></td>
+            <td class='head'><input type='text' size='12' name='new_uname[<{$i}>]' value='' /></td>
+            <td class='head'><input type='checkbox' name='new_can_read[<{$i}>]' id='ncol_1_<{$i}>' checked='checked' disabled='disabled' /></td>
+            <td class='even'><input type='checkbox' name='new_permission[<{$i}>][post]' id='ncol_2_<{$i}>' value='1' /></td>
+            <td class='even'><input type='checkbox' name='new_permission[<{$i}>][html]' id='ncol_3_<{$i}>' value='1' /></td>
+            <td class='even'><input type='checkbox' name='new_permission[<{$i}>][edit]' id='ncol_4_<{$i}>' value='1' /></td>
+            <td class='even'><input type='checkbox' name='new_permission[<{$i}>][delete]' id='ncol_5_<{$i}>' value='1' /></td>
+            <td class='even'><input type='checkbox' name='new_permission[<{$i}>][auto_approve]' id='ncol_6_<{$i}>' value='1' /></td>
+            <td class='even'><input type='checkbox' name='new_permission[<{$i}>][moderate]' id='ncol_7_<{$i}>' value='1' /></td>
+
+        </tr>
+        <{/section}>
+    </table>
+    <{xoops_token form=$actionForm}>
+	<input type="submit" name="user_update" value="<{$smarty.const._SUBMIT}>" />
+    <input type="hidden" name="forum_id" value="<{$actionForm->get('forum_id')}>" />
+	<br />
+	<{$smarty.const._MD_A_XCFORUM_NOTICE_ADDUSERS}>
+</form>
+
