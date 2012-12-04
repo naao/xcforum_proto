@@ -12,7 +12,7 @@ if( ! function_exists( 'xcforum_notify_base' ) ) {
 function xcforum_notify_base( $mydirname , $category , $item_id )
 {
 	include_once dirname(__FILE__).'/include/common_functions.php' ;
-	adump($category);
+	//adump($category);
 	$db =& Database::getInstance() ;
 
 	$module_handler =& xoops_gethandler( 'module' ) ;

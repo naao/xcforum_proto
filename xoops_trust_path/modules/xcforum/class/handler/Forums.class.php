@@ -214,7 +214,7 @@ class Xcforum_ForumsHandler extends Xcforum_CriteriaHandler
 		//adump($_topic_id);
 		if (!empty($_forum_id) && (int)$_forum_id >0){
 			$forum = $this->get($_forum_id);
-			adump($opt);
+			//adump($opt);
 			foreach($attributes as $key => $value){
 				$forum->set($key, $value);
 			}

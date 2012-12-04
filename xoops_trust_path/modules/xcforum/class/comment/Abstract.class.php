@@ -268,7 +268,7 @@ public function displayCommentsInline( $params )
 	$attribute = array('topic_id' => $topic_ids);    // only for XCL2.2 or more
 	$order = array('modified_time' => 'DESC');
 	$this->_mObject = $this->_mPostsHandler->getPostsObj($attribute, $order, $limit, $start);
-		adump($this->_mObject);
+		//adump($this->_mObject);
 
 	$this->_render_comments( $this->xcforum_dirname , $new_params['forum_id'] , $new_params , $this->smarty ) ;
 

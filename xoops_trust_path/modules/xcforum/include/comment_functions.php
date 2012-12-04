@@ -58,7 +58,7 @@ function xcforum_display_comment_topicscount( $mydirname , $forum_id , $params ,
 // old interface
 function xcforum_display_comment( $mydirname , $forum_id , $params )
 {
-	atrace();
+	//atrace();
 	global $xoopsUser , $xoopsConfig , $xoopsModule ;
 
 	// check the d3forum exists and is active
@@ -138,7 +138,7 @@ function xcforum_display_comment( $mydirname , $forum_id , $params )
 
 function xcforum_render_comments( $mydirname , $forum_id , $params , &$smarty )
 {
-	atrace();
+	//atrace();
 	global $xoopsUser , $xoopsConfig , $xoopsModule ;
 
 	$mydirpath = XOOPS_ROOT_PATH.'/modules/'.$mydirname ;
@@ -158,7 +158,7 @@ function xcforum_render_comments( $mydirname , $forum_id , $params , &$smarty )
 	require_once( $langmanpath ) ;
 	$langman =& D3LanguageManager::getInstance() ;
 	$langman->read( 'main.php' , $mydirname , $mytrustdirname ) ;
-adump($mydirname);
+//adump($mydirname);
 	// local $xoopsModuleConfig
 	$module_hanlder =& xoops_gethandler( 'module' ) ;
 	$module =& $module_hanlder->getByDirname( $mydirname ) ;
